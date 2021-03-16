@@ -1,42 +1,83 @@
 <template>
 	<view>
-		<zmj-nvue-video :vidInfo="json">
+		<!-- <zmj-nvue-video :vidInfo="json">
 			
-		</zmj-nvue-video>
+		</zmj-nvue-video> -->
+		<simple-video :vidInfo="json"></simple-video>
+		<!-- <zz-video :vidInfo="json"></zz-video> -->
 		
-		<view style="width: 200px; height: 200px; background-color: #ffff7f;" @click="clickView">
+		<!-- <view style="width: 200px; height: 200px; background-color: #ffff7f;" @click="clickView">
 			
 			<image style="width: 100px;height: 100px;" src="../../static/icon_pause.png" @click="clickImg"></image>
 		</view>
+		<zz-video :vidInfo="baseVideoInfo"></zz-video> -->
+		
+		
+		<text @click="naviToPage">nextPage</text>
 	</view>
 </template>
 
 <script>
 	import zmjNvueVideo from '@/components/videos/zmjNvueVideo.vue'
+	import simpleVideo from '@/components/videos/simpleVideo.vue'
+	import zzVideo from '@/components/videos/zzVideo.vue'
 	export default {
 		components:{
-			zmjNvueVideo
+			zmjNvueVideo,
+			simpleVideo,
+			zzVideo
 		},
 		data(){
 			return{
-				json:[
-					{
-						type:'流畅',
-						title:'女i哦我让你飞鸟日本纳粹女崔你猜呢完成别vu顶底董事局i',
-						path:'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126-lite.m4v'
-					},
-					{
-						type:'高清',
-						title:'女i哦我让你飞鸟日本纳粹女崔你猜呢完成别vu顶底董事局i',
-						path:'http://bdmov.a.yximgs.com/bs2/gdtPostRoll/postRoll-MTA3MDk5Mjc5OTg.mp4'
-					},
-					{
-						type:'原画',
-						title:'女i哦我让你飞鸟日本纳粹女崔你猜呢完成别vu顶底董事局i',
-						path:'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126-lite.m4v'
-					}
-				]
+				record: 0,	//	每一个视频已播放的位置记录
+				json:{
+					title:'女i哦我让你飞鸟日本纳粹女崔你猜呢完成别vu顶底董事局i',
+					record: 10,	// 播放记录 单位 秒s
+					poster: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2043526486,137027039&fm=26&gp=0.jpg',
+					source: [
+						{
+							type:'流畅',
+							path:'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126-lite.m4v'
+						},
+						{
+							type:'高清',
+							path:'http://bdmov.a.yximgs.com/bs2/gdtPostRoll/postRoll-MTA3MDk5Mjc5OTg.mp4'
+						},
+						{
+							type:'原画',
+							path:'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126-lite.m4v'
+						}
+					],
+				},
+				precent:0,
+				
+				// 一个视频的基本信息
+				baseVideoInfo: {
+					title:'女i哦我让你飞鸟日本纳粹女崔你猜呢完成别vu顶底董事局i',
+					record: 0,	// 播放记录
+					source: [
+						{
+							type:'流畅',
+							path:'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126-lite.m4v'
+						},
+						{
+							type:'高清',
+							path:'http://bdmov.a.yximgs.com/bs2/gdtPostRoll/postRoll-MTA3MDk5Mjc5OTg.mp4'
+						},
+						{
+							type:'原画',
+							path:'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126-lite.m4v'
+						}
+					],
+				}
+				
 			}
+		},
+		created() {
+			uni.$on('playPercent',playPercent=>{
+				this.precent = playPercent;
+				// console.log('播放比例：' + this.precent);
+			});
 		},
 		methods:{
 			clickView(e){
@@ -45,11 +86,15 @@
 			clickImg(e){
 				e.stopPropagation();
 				console.log('clickView子View.......');
+			},
+			naviToPage() {
+				uni.navigateTo({
+					url:'../videoPage/videoPage?id="cnsncifeiwifewicd哈哈"'
+				})
 			}
 		}
 	}
 </script>
 
 <style>
-
 </style>

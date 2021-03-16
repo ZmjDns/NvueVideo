@@ -14,7 +14,9 @@
 			<!-- title部分 -->
 			<view :class="isFullScreen ? 'title_box_full_screen' : 'title_box'" v-if="isControlShow">
 				<image class="back_icon" src="../../static/icon_back.png" @click.stop="backClick"></image>
-				<view class="title_content" >{{vidInfo.title}}</view>
+				<view class="title_content" >
+					<text class="controls_text">{{vidInfo.title}}</text>
+				</view>
 			</view>
 			
 			<!-- 清晰度选择部分 -->
@@ -26,24 +28,14 @@
 			<!-- 底部控制条部分 -->
 			<view :class="isFullScreen ? 'bottom_controls_full_screen' : 'bottom_controls'"  v-if="isControlShow">
 				<image class="controls_play" buible="true" @click.stop="playOrPause" :src="isPlaying ? '../../static/icon_pause.png' : '../../static/play.png'"></image>
+				<text class="controls_text">{{playedTime}}</text>
 				<progress class="controls_progress" @click="progressClick" @touchstart="touchStart" @touchend="touchEnd" @touchmove="touchMove" :percent="percent" stroke-width="2" border-radius="10"></progress>
-				<text class="controls_time">{{playedTime + '/' + allTime}}</text>
-				<view class="control_clear" @click.stop="choseType">{{vidInfo.source[vidType].type}}</view>
+				<text class="controls_text">{{allTime}}</text>
+				<view class="control_clear" @click.stop="choseType">
+					<text class="controls_text">{{vidInfo.source[vidType].type}}</text>
+				</view>
 				<image class="control_full_screen" src="../../static/icon_full_screen.png" @click="requestFullScreen"></image>
 			</view>
-			<!-- <cover-view class="video_title"  :style="{ width: `750rpx`,height: `420rpx` }" @click="clickCover">
-				<view class="title_box" v-if="isControlShow">
-					<image class="back_icon" src="../../static/icon_back.png"></image>
-					<view class="title_content" >{{vidInfo[0].title}}</view>
-				</view>
-				
-				<view class="bottom_controls" v-if="isControlShow">
-					<image class="controls_play" src="../../static/play.png"></image>
-					<progress class="controls_progress" :percent="percent" border-radius="5"></progress>
-					<view class="controls_play">{{vidInfo[0].type}}</view>
-					<image class="controls_play" src="../../static/icon_full_screen.png"></image>
-				</view>
-			</cover-view> -->
 		</video>
 	</view>
 </template>
@@ -65,7 +57,7 @@
 				progressLength:0,		//progress长度
 				touchStartPosition:0,	//
 				touchEndPosition:0,		//
-				playedTime: '00:00'
+				playedTime: '00:00',	//
 			}
 		},
 		props:['vidInfo'],
@@ -270,7 +262,7 @@
 		width: 0;
 		height: 60rpx;
 		margin-left: 20rpx;
-		font-size: 30rpx;
+		font-size: 20rpx;
 	}
 	/*底部控制条*/
 	.bottom_controls{
@@ -280,7 +272,7 @@
 		width: 750rpx;
 		height: 80rpx;
 		background-color: #808080;
-		opacity: 0.8;
+		opacity: 0.6;
 	}
 	/*全屏时底部控制条显示*/
 	.bottom_controls_full_screen{
@@ -303,15 +295,15 @@
 		width: 200rpx;
 		height: 80rpx;
 		margin-left: 10rpx;
+		margin-right: 10rpx;
 	}
-	.controls_time {
+	.controls_text {
 		height: 80rpx;
 		line-height: 80rpx;
-		font-size: 30rpx;
-		background-color: #007AFF;
+		font-size: 20rpx;
+		color: #FFFFFF;
 	}
 	.control_clear{
-		width: 80rpx;
 		height: 80rpx;
 		flex-direction: row;
 		align-items: center;
