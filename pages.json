@@ -10,7 +10,10 @@
             "path" : "pages/videoPage/videoPage",
 			"style":{
 			  	"navigationStyle":"custom",
-			    "app-plus":{ "titleNView":false }
+			    "app-plus":{ 
+					"titleNView":false,
+					"softinputMode": "adjustResize"
+				 }
 			}
         }
     ],
