@@ -19,7 +19,7 @@
 			@click="clickVideo">
 			<!-- 顶部标题 -->
 			<view v-if="isShowControls" class="control_bg title_box">
-				<image class="back_icon" @click="clickBack" src="../../static/icon_back.png"></image>
+				<view class="icon_box" @click="clickBack"><image class="back_icon" src="../../static/icon_back.png"></image></view>
 				<text class="text">{{vidInfo.title}}</text>
 			</view>
 			<!-- 清晰度列表 -->
@@ -28,12 +28,16 @@
 			</view>
 			<!-- 底部控制 -->
 			<view v-if="isShowControls" class="control_bg controls_box">
-				<image class="back_icon" @click="playOrPause" :src="isPlaying ? '../../static/icon_pause.png' : '../../static/play.png'"></image>
+				<view class="icon_box" @click="playOrPause">
+					<image class="back_icon" :src="isPlaying ? '../../static/icon_pause.png' : '../../static/play.png'"></image>
+				</view>
 				<text class="text">{{formatTime(currentTime)}}</text>
 				<progress class="controls_progress" :percent="percent" stroke-width="2" border-radius="10"></progress>
 				<text class="text">{{formatTime(duration)}}</text>
 				<text class="text margin" @click="chooseClearType">{{vidType}}</text>
-				<image class="back_icon" @click="requestFullScreen" src="../../static/icon_full_screen.png"></image>
+				<view class="back_icon" @click="requestFullScreen">
+					<image class="back_icon" src="../../static/icon_full_screen.png"></image>
+				</view>
 			</view>
 		</video>
 	</view>
@@ -217,15 +221,19 @@
 		right: 0;
 		height: 60rpx;
 		flex-direction: row;
-		z-index: 100;
+		align-items: center;
 	}
-	.back_icon{
+	.icon_box {
 		width: 60rpx;
 		height: 60rpx;
-		padding-left: 10rpx;
 		padding-top: 10rpx;
-		padding-right: 10rpx;
 		padding-bottom: 10rpx;
+		padding-left: 10rpx;
+		padding-right: 10rpx;
+	}
+	.back_icon{
+		width: 40rpx;
+		height: 40rpx;
 	}
 	.clear_box {
 		position: absolute;
@@ -239,6 +247,8 @@
 		right: 0;
 		height: 60rpx;
 		flex-direction: row;
+		align-items: center;
+		padding-right: 10rpx;
 	}
 	.controls_progress{
 		flex: 1;

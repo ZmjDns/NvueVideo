@@ -169,9 +169,9 @@
 
 <style>
 	.top_line {
-		border-top: 2rpx;
+		border-top: 0rpx;
 		border-style: solid;
-		border-color: #007AFF;
+		border-top-color: #808080;
 		margin-left: 10rpx;
 		margin-right: 10rpx;
 	}
@@ -199,9 +199,17 @@
 		align-items: center;
 	}
 	.arrow {
-		width: 70rpx;
-		height: 70rpx;
-		padding: 20rpx;
+		width: 40rpx;
+		height: 40rpx;
+		margin-right: 20rpx;
+		/*padding-top: 20rpx;
+		padding-left: 20rpx;
+		padding-bottom: 20rpx;
+		padding-right: 20rpx;
+		margin-top: 20rpx;
+		margin-bottom: 20rpx;
+		margin-left: 20rpx;
+		margin-right: 20rpx;*/
 	}
 	.second {
 		margin-left: 30rpx;

@@ -111,7 +111,7 @@
 		border-bottom-right-radius: 5px;
 	}
 
-	.segmented-control__item--text {
+	.segmented-control__item--text{
 		border-bottom-style: solid;
 		border-bottom-width: 2px;
 		margin-left: 40rpx;
